@@ -18,5 +18,6 @@ lazy val root = (project in file("."))
       "io.circe" %% "circe-parser"
     ).map(_ % circeVersion),
     libraryDependencies += csv,
-    libraryDependencies += nscalatime
+    libraryDependencies += nscalatime,
+    libraryDependencies ++= Seq(googleApiClient, googleOAuthClient, googleSpreadSheetApi)
   )
