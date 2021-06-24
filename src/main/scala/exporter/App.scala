@@ -13,7 +13,9 @@ object App extends App {
       asana.getProjectSectionInfo(config.getString("asana.projectGid"))
     sectionInfo match {
       case Some(si) => {
-        val infos = si.data.map(si => si.gid -> asana.getProjectInfoBySection(si.gid)).toMap
+        val infos = si.data
+          .map(si => si.gid -> asana.getProjectInfoBySection(si.gid))
+          .toMap
         val csv = new CSV(new CSVFormatter(si))
         csv.writeResponse(infos, "out.csv")
 
@@ -23,10 +25,11 @@ object App extends App {
             config.getString("google.tokenPath")
           )
           .get
+        val csvRows = csv.getRows(infos)
         spreadsheet.SpreadSheet.writeRange(
           config.getString("google.spreadsheetId"),
           config.getString("google.spreadsheetRange"),
-          Map()
+          csvRows
         )
       }
       case None => // do nothing

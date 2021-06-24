@@ -7,10 +7,11 @@ import com.google.api.services.sheets.v4.Sheets
 import com.google.api.client.http.HttpTransport
 import com.google.api.client.json.JsonFactory
 import com.google.api.services.sheets.v4.model.CellData
+import com.google.api.services.sheets.v4.model.ValueRange
 
 object SpreadSheet {
   import Defaults.{transport, jsonFactory}
-  def writeRange(spreadsheetId: String, range: String, putMap: Map[String, String])(implicit
+  def writeRange(spreadsheetId: String, range: String, rows: Seq[Seq[Object]])(implicit
       credential: Credential,
       transport: HttpTransport = transport,
       jsonFactory: JsonFactory = jsonFactory
@@ -19,11 +20,10 @@ object SpreadSheet {
       .setApplicationName("scala-asana-csv-exporter")
       .build()
 
-    val result = service
-      .spreadsheets()
-      .values()
-      .get(spreadsheetId, range)
+      val body = new ValueRange().setValues(rows.map(_.asJava).asJava)
+
+      val res = service.spreadsheets().values().update(spreadsheetId, range, body)
+      .setValueInputOption("RAW")
       .execute()
-    println(result.getValues())
   }
 }

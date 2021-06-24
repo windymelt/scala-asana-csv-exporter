@@ -13,4 +13,12 @@ class CSV(formatter: CSVFormatter) {
     }
     writer.close()
   }
+  def getRows(dataMap: Map[String, Seq[schema.Datum]]): Seq[Seq[String]] = {
+      val header = formatter.header
+      val rows = dataMap.map { case (sectionGid, data) =>
+        data.map ( datum => formatter.format(datum, sectionGid) )
+      } flatten
+
+      Seq(header) ++ rows
+    }
 }
