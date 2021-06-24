@@ -8,5 +8,5 @@ object Dependencies {
   lazy val googleApiClient = "com.google.api-client" % "google-api-client" % "1.30.4"
   lazy val googleOAuthClient = "com.google.oauth-client" % "google-oauth-client-jetty" % "1.30.6"
   lazy val googleSpreadSheetApi = "com.google.apis" % "google-api-services-sheets" % "v4-rev581-1.25.0"
-
+  lazy val hocon = "com.typesafe" % "config" % "1.4.1"
 }

@@ -19,5 +19,6 @@ lazy val root = (project in file("."))
     ).map(_ % circeVersion),
     libraryDependencies += csv,
     libraryDependencies += nscalatime,
-    libraryDependencies ++= Seq(googleApiClient, googleOAuthClient, googleSpreadSheetApi)
+    libraryDependencies ++= Seq(googleApiClient, googleOAuthClient, googleSpreadSheetApi),
+    libraryDependencies += hocon
   )
