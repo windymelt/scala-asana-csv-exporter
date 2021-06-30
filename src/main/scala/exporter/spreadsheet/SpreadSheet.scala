@@ -23,7 +23,7 @@ object SpreadSheet {
       val body = new ValueRange().setValues(rows.map(_.asJava).asJava)
 
       val res = service.spreadsheets().values().update(spreadsheetId, range, body)
-      .setValueInputOption("RAW")
+      .setValueInputOption("USER_ENTERED")
       .execute()
   }
 }
